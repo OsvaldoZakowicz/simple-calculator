@@ -38,6 +38,10 @@
   grid-column-end: 5;
   justify-self: center;
   align-self: center;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 50px;
   width: 375px;
   height: 80px;
   border-radius: 5px;
@@ -109,6 +113,6 @@
   grid-row: 6/span 1;
 }
 
-.percent {
+.hi {
   background-color: #ef8354;
 }
