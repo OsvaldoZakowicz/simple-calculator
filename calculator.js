@@ -27,6 +27,7 @@ const divide = document.getElementById('divide');
 const equal = document.getElementById('equal');
 const sup = document.getElementById('sup');
 const c = document.getElementById('c');
+const about = document.getElementById('about');
 
 /**
  * *Inserto caracteres en el display
@@ -54,6 +55,7 @@ product.onclick = (e) => {insertCaract('*')};
 divide.onclick = (e) => {insertCaract('/')};
 sup.onclick = (e) => {deleteCaract()};
 c.onclick = (e) => {clearDisplay()};
+about.onclick = e => alert("C4LCUL4T0R v0.1, Make with <3!!");
 
 /**
  * *Borro caracteres del display, uno a la vez
