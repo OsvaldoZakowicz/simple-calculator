@@ -13,24 +13,27 @@
     <p class="text">c4lcul4t0r</p>
     <div class="calc-container">
       <!-- <input type="text" id="display" class="display"> -->
-      <div id="display" class="display"></div>
-      <button class="btn btn-num">9</button>
-      <button class="btn btn-num">8</button>
-      <button class="btn btn-num">7</button>
-      <button class="btn btn-num">6</button>
-      <button class="btn btn-num">5</button>
-      <button class="btn btn-num">4</button>
-      <button class="btn btn-num">3</button>
-      <button class="btn btn-num">2</button>
-      <button class="btn btn-num">1</button>
-      <button class="btn btn-num">0</button>
-      <button class="btn dot">.</button>
-      <button class="btn add">+</button>
-      <button class="btn sub">-</button>
-      <button class="btn product">*</button>
-      <button class="btn divide">/</button>
-      <button class="btn equal" >=</button>
-      <button class="btn hi">^^</button>
+      <div id="display" class="display">
+        <div class="operation">56+34</div>
+        <div class="result">567455</div>
+      </div>
+      <button class="btn btn-num9" onclick="insertCaract(9)">9</button>
+      <button class="btn btn-num8" onclick="insertCaract(8)">8</button>
+      <button class="btn btn-num7" onclick="insertCaract(7)">7</button>
+      <button class="btn btn-num6" onclick="insertCaract(6)">6</button>
+      <button class="btn btn-num5" onclick="insertCaract(5)">5</button>
+      <button class="btn btn-num4" onclick="insertCaract(4)">4</button>
+      <button class="btn btn-num3" onclick="insertCaract(3)">3</button>
+      <button class="btn btn-num2" onclick="insertCaract(2)">2</button>
+      <button class="btn btn-num1" onclick="insertCaract(1)">1</button>
+      <button class="btn btn-num0" onclick="insertCaract(0)">0</button>
+      <button class="btn dot" onclick="insertCaract('.')">.</button>
+      <button class="btn add" onclick="insertCaract('+')">+</button>
+      <button class="btn sub" onclick="insertCaract('-')">-</button>
+      <button class="btn product" onclick="insertCaract('*')">*</button>
+      <button class="btn divide" onclick="insertCaract('/')">/</button>
+      <button class="btn equal" onclick="calculate()">=</button>
+      <button class="btn hi" onclick="alert('C4LCUL4T0R v0.1')">^^</button>
       <button class="btn sup" onclick="deleteCaract()" >sup</button>
       <button class="btn c" onclick="clearDisplay()" >c</button>
     </div>

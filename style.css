@@ -39,6 +39,7 @@
   justify-self: center;
   align-self: center;
   display: flex;
+  flex-direction: column;
   justify-content: start;
   align-items: center;
   font-size: 50px;
@@ -46,6 +47,19 @@
   height: 80px;
   border-radius: 5px;
   background-color: #d9d9d9;
+}
+
+.display .operation {
+  width: inherit;
+  height: 30%;
+  padding: 0 5px;
+}
+
+.display .result {
+  width: inherit;
+  height: 70%;
+  font-size: 35px;
+  padding: 10px 5px;
 }
 
 .btn {
