@@ -34,35 +34,84 @@ const about = document.getElementById('about');
  * @param {*} caract
  * @returns 
  */
-const insertCaract = (caract) => displayoperation.textContent += caract;
+const insertNumber = (number) => displayresult.textContent += number;
+
+const insertOperation = (operation) => displayoperation.textContent += operation;
 
 /**
  * *Eventos
  */
-nueve.onclick = (e) => {insertCaract(9)};
-ocho.onclick = (e) => {insertCaract(8)};
-siete.onclick = (e) => {insertCaract(7)};
-seis.onclick = (e) => {insertCaract(6)};
-cinco.onclick = (e) => {insertCaract(5)};
-cuatro.onclick = (e) => {insertCaract(4)};
-tres.onclick = (e) => {insertCaract(3)};
-dos.onclick = (e) => {insertCaract(2)};
-uno.onclick = (e) => {insertCaract(1)};
-cero.onclick = (e) => {insertCaract(0)};
-add.onclick = (e) => {insertCaract('+')};
-sub.onclick = (e) => {insertCaract('-')};
-product.onclick = (e) => {insertCaract('*')};
-divide.onclick = (e) => {insertCaract('/')};
+nueve.onclick = (e) => {insertNumber(9)};
+ocho.onclick = (e) => {insertNumber(8)};
+siete.onclick = (e) => {insertNumber(7)};
+seis.onclick = (e) => {insertNumber(6)};
+cinco.onclick = (e) => {insertNumber(5)};
+cuatro.onclick = (e) => {insertNumber(4)};
+tres.onclick = (e) => {insertNumber(3)};
+dos.onclick = (e) => {insertNumber(2)};
+uno.onclick = (e) => {insertNumber(1)};
+cero.onclick = (e) => {insertNumber(0)};
+dot.onclick = (e) => {insertNumber('.')};
+
+add.onclick = (e) => {
+  const number = parseFloat(displayresult.textContent);
+  displayoperation.textContent += displayresult.textContent;
+  displayresult.textContent = "";
+  insertOperation('+');
+  calculate(number, '+');
+};
+
+sub.onclick = (e) => {
+  const number = parseFloat(displayresult.textContent);
+  displayoperation.textContent += displayresult.textContent;
+  displayresult.textContent = "";
+  insertOperation('-');
+  calculate(number, '-');
+};
+
+product.onclick = (e) => {
+  const number = parseFloat(displayresult.textContent);
+  displayoperation.textContent += displayresult.textContent;
+  displayresult.textContent = "";
+  insertOperation('*');
+  calculate(number, '*');
+};
+
+divide.onclick = (e) => {
+  const number = parseFloat(displayresult.textContent);
+  displayoperation.textContent += displayresult.textContent;
+  displayresult.textContent = "";
+  insertOperation('/');
+  calculate(number, '/');
+};
+
+equal.onclick = (e) => {
+  const lastoperation = displayoperation.textContent.substring(displayoperation.textContent.length-1);
+  const number = parseFloat(displayresult.textContent);
+  calculate(number, lastoperation);
+  console.log(result);
+  displayoperation.textContent = "";
+  displayresult.textContent = result;
+  result = 0;
+  opcont = 0;
+}
+
 sup.onclick = (e) => {deleteCaract()};
-c.onclick = (e) => {clearDisplay()};
-about.onclick = e => alert("C4LCUL4T0R v0.1, Make with <3!!");
+
+c.onclick = (e) => {
+  result = 0;
+  opcont = 0;
+  clearDisplay();
+};
+
+about.onclick = e => alert("C4LCUL4T0R v0.1, Make with love!!, NOTE: separate operations using the = button, otherwise the result will not be correct. Combined operations not supported yet");
 
 /**
  * *Borro caracteres del display, uno a la vez
  * @returns
  */
 const deleteCaract = () => {
-  displayoperation.textContent = displayoperation.textContent.substring(0, displayoperation.textContent.length-1);
+  displayresult.textContent = displayresult.textContent.substring(0, displayresult.textContent.length-1);
 }
 
 /**
@@ -72,4 +121,54 @@ const deleteCaract = () => {
 const clearDisplay = () => {
   displayoperation.textContent = "";
   displayresult.textContent = "";
+}
+
+let result = 0;
+let opcont = 0;
+
+const calculate = (number, operation) => {
+  switch (operation) {
+    case '+':
+      if (opcont === 0) {
+        result = number;
+        opcont++;
+        break;
+      }
+      result = result + parseFloat(number);
+      opcont++;
+      break;
+
+    case '-':
+      if (opcont === 0) {
+        result = number;
+        opcont++;
+        break;
+      }
+      result = result - parseFloat(number);
+      opcont++;
+      break;
+    
+    case '*':
+      if (opcont === 0) {
+        result = number;
+        opcont++;
+        break;
+      }
+      result = result * parseFloat(number);
+      opcont++;
+      break;
+    
+    case '/':
+      if (opcont === 0) {
+        result = number;
+        opcont++;
+        break;
+      }
+      result = result / parseFloat(number);
+      opcont++;
+      break;
+
+    default:
+      break;
+  }
 }
