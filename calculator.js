@@ -91,7 +91,12 @@ equal.onclick = (e) => {
   calculate(number, lastoperation);
   console.log(result);
   displayoperation.textContent = "";
-  displayresult.textContent = result;
+  if (isNaN(result)) {
+    displayoperation.textContent = "Syntax error! press c"
+    displayresult.textContent = "";
+  } else {
+    displayresult.textContent = result;
+  }
   result = 0;
   opcont = 0;
 }
