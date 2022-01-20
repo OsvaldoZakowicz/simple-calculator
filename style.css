@@ -5,7 +5,11 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Bebas Neue', cursive;
-  font-size: 24px;
+  font-size: 28px;
+}
+
+body {
+  background-color: #555b6e;
 }
 
 .container {
@@ -46,7 +50,7 @@
   width: 375px;
   height: 80px;
   border-radius: 5px;
-  background-color: #d9d9d9;
+  background-color: #edede9;
 }
 
 .display .operation {
@@ -82,44 +86,44 @@
 .sup {
   grid-column: 1/span 1;
   grid-row: 2/span 1;
-  background-color: #e26d5c;
+  background-color: #e5383b;
 }
 
 .c {
   grid-column: 2/span 1;
   grid-row: 2/span 1;
-  background-color: #284b63;
+  background-color: #0077b6;
 }
 
 .add {
   grid-column: 3/span 1;
   grid-row: 2/span 1;
-  background-color: #ef8354;
+  background-color: #ff6b35;
 }
 
 .sub{
   grid-column: 4/span 1;
   grid-row: 2/span 1;
-  background-color: #ef8354;
+  background-color: #ff6b35;
 }
 
 .product {
   grid-column: 4/span 1;
   grid-row: 3/span 1;
-  background-color: #ef8354;
+  background-color: #ff6b35;
 }
 
 .divide {
   grid-column: 4/span 1;
   grid-row: 4/span 1;
-  background-color: #ef8354;
+  background-color: #ff6b35;
 }
 
 .equal {
   grid-column: 4/span 1;
   grid-row: 5/span 2;
   height: 167px;
-  background-color: #3c6e71;
+  background-color: #007f5f;
 }
 
 .dot {
@@ -128,5 +132,5 @@
 }
 
 .hi {
-  background-color: #ef8354;
+  background-color: #fcca46;
 }
