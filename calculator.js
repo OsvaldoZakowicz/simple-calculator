@@ -7,7 +7,7 @@ const displayoperation = document.getElementById('operation');
 const displayresult = document.getElementById('result');
 
 /**
- * *Obtengo numeros y operaciones 
+ * *Obtengo numeros
  */
 const nueve = document.getElementById('btn-num9');
 const ocho = document.getElementById('btn-num8');
@@ -20,6 +20,9 @@ const dos = document.getElementById('btn-num2');
 const uno = document.getElementById('btn-num1');
 const cero = document.getElementById('btn-num0');
 
+/**
+ * *Obtengo operaciones
+ */
 const add = document.getElementById('add');
 const sub = document.getElementById('sub');
 const product = document.getElementById('product');
@@ -30,12 +33,17 @@ const c = document.getElementById('c');
 const about = document.getElementById('about');
 
 /**
- * *Inserto caracteres en el display
+ * *Inserto numeros en el display de resultado
  * @param {*} caract
  * @returns 
  */
 const insertNumber = (number) => displayresult.textContent += number;
 
+/**
+ * *Inserto operaciones en el display de operaciones
+ * @param {*} operation 
+ * @returns 
+ */
 const insertOperation = (operation) => displayoperation.textContent += operation;
 
 /**
