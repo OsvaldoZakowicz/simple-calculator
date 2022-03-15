@@ -1,13 +1,17 @@
 /**
- * *Obtengo el display operation de la calculadora.
- * *Obtengo el display result de la calculadora.
- * donde mostrare las operaciones y resultados
+ * *Obtengo el display 'operation' de la calculadora.
+ *  mostrar la operacion a resolver.
  */
 const displayoperation = document.getElementById('operation');
+
+/**
+ * *Obtengo el display 'result' de la calculadora
+ * mostrar el resultado de la operacion.
+ */
 const displayresult = document.getElementById('result');
 
 /**
- * *Obtengo numeros
+ * *Obtengo botones de numeros
  */
 const nueve = document.getElementById('btn-num9');
 const ocho = document.getElementById('btn-num8');
@@ -21,7 +25,7 @@ const uno = document.getElementById('btn-num1');
 const cero = document.getElementById('btn-num0');
 
 /**
- * *Obtengo operaciones
+ * *Obtengo botones de operaciones
  */
 const add = document.getElementById('add');
 const sub = document.getElementById('sub');
@@ -33,155 +37,118 @@ const c = document.getElementById('c');
 const about = document.getElementById('about');
 
 /**
- * *Inserto numeros en el display de resultado
+ * *Inserto caracteres en el display de operacion
  * @param {*} caract
  * @returns 
  */
-const insertNumber = (number) => displayresult.textContent += number;
+function insertCaracter(caracter){ 
+  displayoperation.textContent += caracter;
+};
 
 /**
- * *Inserto operaciones en el display de operaciones
- * @param {*} operation 
- * @returns 
+ * *Inserto el resultado final del calculo en el display de resultado, en String.
+ * @param {*} result 
  */
-const insertOperation = (operation) => displayoperation.textContent += operation;
+function insertResult(result){
+  displayresult.textContent += result.toString();
+}
+
+/**
+ * *Borro un caracter del display de operaciones, 
+ * Haciendo un substring y restando en 1 la longitud por cada
+ * @returns
+ */
+function deleteCaracter(){
+  displayoperation.textContent = displayoperation.textContent.substring(0, displayoperation.textContent.length-1);
+}
+
+/**
+ * *Borro todos los caracteres de ambos display
+ * @returns
+ */
+function clearDisplay(){
+  displayoperation.textContent = "";
+  displayresult.textContent = "";
+}
 
 /**
  * *Eventos
  */
-nueve.onclick = (e) => {insertNumber(9)};
-ocho.onclick = (e) => {insertNumber(8)};
-siete.onclick = (e) => {insertNumber(7)};
-seis.onclick = (e) => {insertNumber(6)};
-cinco.onclick = (e) => {insertNumber(5)};
-cuatro.onclick = (e) => {insertNumber(4)};
-tres.onclick = (e) => {insertNumber(3)};
-dos.onclick = (e) => {insertNumber(2)};
-uno.onclick = (e) => {insertNumber(1)};
-cero.onclick = (e) => {insertNumber(0)};
-dot.onclick = (e) => {insertNumber('.')};
-
-add.onclick = (e) => {
-  const number = parseFloat(displayresult.textContent);
-  displayoperation.textContent += displayresult.textContent;
-  displayresult.textContent = "";
-  insertOperation('+');
-  calculate(number, '+');
+nueve.onclick = (event) => {
+  insertCaracter(9)
 };
 
-sub.onclick = (e) => {
-  const number = parseFloat(displayresult.textContent);
-  displayoperation.textContent += displayresult.textContent;
-  displayresult.textContent = "";
-  insertOperation('-');
-  calculate(number, '-');
+ocho.onclick = (event) => {
+  insertCaracter(8)
 };
 
-product.onclick = (e) => {
-  const number = parseFloat(displayresult.textContent);
-  displayoperation.textContent += displayresult.textContent;
-  displayresult.textContent = "";
-  insertOperation('*');
-  calculate(number, '*');
+siete.onclick = (event) => {
+  insertCaracter(7)
 };
 
-divide.onclick = (e) => {
-  const number = parseFloat(displayresult.textContent);
-  displayoperation.textContent += displayresult.textContent;
-  displayresult.textContent = "";
-  insertOperation('/');
-  calculate(number, '/');
+seis.onclick = (event) => {
+  insertCaracter(6)
 };
 
-equal.onclick = (e) => {
-  const lastoperation = displayoperation.textContent.substring(displayoperation.textContent.length-1);
-  const number = parseFloat(displayresult.textContent);
-  calculate(number, lastoperation);
-  console.log(result);
-  displayoperation.textContent = "";
-  if (isNaN(result)) {
-    displayoperation.textContent = "Syntax error! press c"
-    displayresult.textContent = "";
-  } else {
-    displayresult.textContent = result;
-  }
-  result = 0;
-  opcont = 0;
-}
+cinco.onclick = (event) => {
+  insertCaracter(5)
+};
 
-sup.onclick = (e) => {deleteCaract()};
+cuatro.onclick = (event) => {
+  insertCaracter(4)
+};
 
-c.onclick = (e) => {
-  result = 0;
-  opcont = 0;
+tres.onclick = (event) => {
+  insertCaracter(3)
+};
+
+dos.onclick = (event) => {
+  insertCaracter(2)
+};
+
+uno.onclick = (event) => {
+  insertCaracter(1)
+};
+
+cero.onclick = (event) => {
+  insertCaracter(0)
+};
+
+dot.onclick = (event) => {
+  insertCaracter('.')
+};
+
+add.onclick = (event) => {
+  insertCaracter('+');
+};
+
+sub.onclick = (event) => {
+  insertCaracter('-');
+};
+
+product.onclick = (event) => {
+  insertCaracter('*');
+};
+
+divide.onclick = (event) => {
+  insertCaracter('/');
+};
+
+sup.onclick = (event) => {
+  deleteCaracter()
+};
+
+c.onclick = (event) => {
   clearDisplay();
 };
 
-about.onclick = e => alert("C4LCUL4T0R v0.1, Make with love!!, NOTE: separate operations using the = button, otherwise the result will not be correct. Combined operations not supported yet");
+about.onclick = event => { 
+  alert("C4LCUL4T0R v0.1, Make with love!!, NOTE: separate operations using the = button, otherwise the result will not be correct. Combined operations not supported yet");
+};
 
-/**
- * *Borro caracteres del display, uno a la vez
- * @returns
- */
-const deleteCaract = () => {
-  displayresult.textContent = displayresult.textContent.substring(0, displayresult.textContent.length-1);
-}
-
-/**
- * *Borro todos los caracteres del display
- * @returns
- */
-const clearDisplay = () => {
-  displayoperation.textContent = "";
-  displayresult.textContent = "";
-}
-
-let result = 0;
-let opcont = 0;
-
-const calculate = (number, operation) => {
-  switch (operation) {
-    case '+':
-      if (opcont === 0) {
-        result = number;
-        opcont++;
-        break;
-      }
-      result = result + parseFloat(number);
-      opcont++;
-      break;
-
-    case '-':
-      if (opcont === 0) {
-        result = number;
-        opcont++;
-        break;
-      }
-      result = result - parseFloat(number);
-      opcont++;
-      break;
-    
-    case '*':
-      if (opcont === 0) {
-        result = number;
-        opcont++;
-        break;
-      }
-      result = result * parseFloat(number);
-      opcont++;
-      break;
-    
-    case '/':
-      if (opcont === 0) {
-        result = number;
-        opcont++;
-        break;
-      }
-      result = result / parseFloat(number);
-      opcont++;
-      break;
-
-    default:
-      break;
-  }
+equal.onclick = (event) => {
+  const operation = displayoperation.textContent;
+  console.log(operation);
+  // TODO: validar formato de operacion
+  // TODO: operar y mostrar resultado o error de sintaxis
 }
