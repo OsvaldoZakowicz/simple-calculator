@@ -146,9 +146,78 @@ about.onclick = event => {
   alert("C4LCUL4T0R v0.1, Make with love!!, NOTE: separate operations using the = button, otherwise the result will not be correct. Combined operations not supported yet");
 };
 
+/**
+ * *Regex valido para operar dos numeros enteros (opcionalmente con .)
+ * en las operaciones basicas +,-,*,/
+ */
+let validOperationFormat = /^[0-9]+(\.[0-9]{1,5})?[+|\-|*|/]{1}[0-9]+(\.[0-9]{1,5})?$/;
+
+/**
+ * *Evalua la operacion ingresada comparandola con el 
+ * formato valido del regex
+ * @returns validation
+ */
+function evaluateExpresion() {
+  const expresion = displayoperation.textContent;
+  const validation = expresion.match(validOperationFormat);
+  return validation;
+};
+
+function calculate(expresion) {
+  if (expresion.includes('+')) {
+    //suma
+    const toOperate = processOperation(expresion,'+');
+    return toOperate[0]+toOperate[1];
+  } else if(expresion.includes('-')) {
+    //resta
+    const toOperate = processOperation(expresion,'-');
+    return toOperate[0]-toOperate[1];
+  } else if(expresion.includes('*')) {
+    //multiplicacion
+    const toOperate = processOperation(expresion,'*');
+    return toOperate[0]*toOperate[1];
+  } else if(expresion.includes('/')) {
+    //division
+    const toOperate = processOperation(expresion,'/');
+    if(toOperate[1] === 0) {
+      return indicateSintaxError();
+    } else {
+      return toOperate[0]/toOperate[1];
+    }
+  };
+};
+
+/**
+ * * Procesar una operacion, extraer el operador y convertir
+ * a un array de dos operandos numericos
+ * @param {*} expresion 
+ * @param {*} operator 
+ * @returns 
+ */
+function processOperation(expresion, operator) {
+  return expresion.split(operator).map((expr) => parseFloat(expr));
+};
+
+/**
+ * *Indicar error de sintaxis cuando falla la validacion
+ * de la operacion
+ */
+function indicateSintaxError() {
+  displayresult.textContent += 'SYNTAX ERROR, press C';
+};
+
 equal.onclick = (event) => {
-  const operation = displayoperation.textContent;
-  console.log(operation);
-  // TODO: validar formato de operacion
-  // TODO: operar y mostrar resultado o error de sintaxis
+  if (evaluateExpresion()) {
+    //obtengo la expresion del display
+    const expresion = displayoperation.textContent;
+    //calculo la expresion
+    const result = calculate(expresion);
+    //muestro el resultado
+    displayresult.textContent += result;
+  } else {
+    indicateSintaxError();
+  }
+  // TODO: identificar numeros negativos
+  // TODO: si es un solo numero, retornar
+  // TODO: operar numeros negativos
 }
