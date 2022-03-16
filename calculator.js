@@ -161,15 +161,19 @@ let negativeNumber = /^[¬]{1}[0-9]+(\.[0-9]+)?$/;
 //identificar numeros positivos con la forma (¬¬n)
 let negativePositiveNumber = /^[¬]{2}[0-9]+(\.[0-9]+)?$/;
 
+//identificar numeros positivos (n)
+let positiveNumber = /^[0-9]+(\.[0-9]+)?$/;
+
 
 /**
  * *Evalua la operacion ingresada comparandola con el 
  * formato valido del regex
+ * @param {*} expresion
+ * @param {*} regex
  * @returns validation
  */
-function evaluateExpresion() {
-  const expresion = displayoperation.textContent;
-  const validation = expresion.match(validOperationFormat);
+function evaluateExpresion(expresion, regex) {
+  const validation = expresion.match(regex);
   return validation;
 };
 
@@ -179,19 +183,27 @@ function evaluateExpresion() {
  * @returns result
  */
 function calculate(expresion) {
+
   if (expresion.includes('+')) {
+
     //suma
     const toOperate = processOperation(expresion,'+');
     return toOperate[0]+toOperate[1];
+
   } else if(expresion.includes('-')) {
+
     //resta
     const toOperate = processOperation(expresion,'-');
     return toOperate[0]-toOperate[1];
+
   } else if(expresion.includes('*')) {
+
     //multiplicacion
     const toOperate = processOperation(expresion,'*');
     return toOperate[0]*toOperate[1];
+
   } else if(expresion.includes('/')) {
+
     //division
     const toOperate = processOperation(expresion,'/');
     if(toOperate[1] === 0) {
@@ -199,7 +211,9 @@ function calculate(expresion) {
     } else {
       return toOperate[0]/toOperate[1];
     }
+    
   };
+
 };
 
 /**
@@ -213,7 +227,6 @@ function processOperation(expresion, operator) {
 
   //tiene numeros negativos, al menos uno de ellos?
   if(expresion.includes('¬')) {
-    console.log(`En fn processOperation: ${expresion}`);
     
     return expresion.split(operator).map((exp) => {
       //numero negativo (¬n)
@@ -245,16 +258,37 @@ function indicateSintaxError() {
 };
 
 equal.onclick = (event) => {
-  if (evaluateExpresion()) {
-    //obtengo la expresion del display
-    const expresion = displayoperation.textContent;
-    //calculo la expresion
-    const result = calculate(expresion);
-    //muestro el resultado
+
+  //obtengo la expresion del display
+  const expresion = displayoperation.textContent;
+
+  if(evaluateExpresion(expresion, negativeNumber)) {
+    //si es un numero negativo (¬n) solamente
+
+    const result = expresion.replace('¬','-');
     displayresult.textContent += result;
+
+  } else if (evaluateExpresion(expresion, negativePositiveNumber)) {
+    //si es un numero positivo de la forma (¬¬n) solamente
+
+    const result = expresion.slice(2, expresion.length);
+    displayresult.textContent += result;
+
+  } else if(evaluateExpresion(expresion, positiveNumber)) {
+    //si es un numero positivo (n)
+
+    displayresult.textContent += expresion;
+
+  } else if (evaluateExpresion(expresion, validOperationFormat)) {
+    //si es una expresion de operacion
+
+    const result = calculate(expresion);
+    displayresult.textContent += result;
+
   } else {
     indicateSintaxError();
   }
   // TODO: agregar boton (M+,M-) a la calculadora
   // TODO: si es un solo numero (¬n, ¬¬n, n), operar y retornar
+  // TODO: mejorar la visualizacion de la operacion y resultado
 }
