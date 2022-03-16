@@ -50,10 +50,17 @@ function insertCaracter(caracter){
  * @param {*} result 
  */
 function insertResult(result){
+  let resultFormated = result;
+  //si el resultado a mostrar es negativo ('-') adaptar a string con ('¬')
+  if(result.toString().includes('-')) {
+    resultFormated = resultFormated.toString().replace('-','¬');
+  } else {
+    resultFormated = resultFormated.toString();
+  }
   displayoperation.textContent = '';
-  displayoperation.textContent += displayresult.textContent + ' = ' + result.toString();
+  displayoperation.textContent += displayresult.textContent + ' = ' + resultFormated;
   displayresult.textContent = '';
-  displayresult.textContent += result.toString();
+  displayresult.textContent += resultFormated;
 }
 
 /**
@@ -248,12 +255,19 @@ function processOperation(expresion, operator) {
 
 };
 
-function resultRounding(result) {
+/**
+ * *Redondear el resultado a no mas de 8 decimales
+ * si el resultado no es entero
+ * @param {*} result 
+ * @returns 
+ */
+function resultFormat(result) {
   //si el resultado es entero, retornar
+  //si el resultado es float, ajustar decimales
   if(Number.isInteger(result)) {
     return result;
   } else {
-    return result.toFixed(5);
+    return result.toFixed(8);
   }
 }
 
@@ -273,27 +287,27 @@ equal.onclick = (event) => {
 
   if(evaluateExpresion(expresion, negativeNumber)) {
     //si es un numero negativo (¬n) solamente
-    const result = expresion.replace('¬','-');
-    insertResult(resultRounding(result));
+    const result = parseFloat(expresion.replace('¬','-'));
+    insertResult(resultFormat(result));
 
   } else if (evaluateExpresion(expresion, negativePositiveNumber)) {
     //si es un numero positivo de la forma (¬¬n) solamente
-    const result = expresion.slice(2, expresion.length);
-    insertResult(resultRounding(result));
+    const result = parseFloat(expresion.slice(2, expresion.length));
+    insertResult(resultFormat(result));
 
   } else if(evaluateExpresion(expresion, positiveNumber)) {
     //si es un numero positivo (n)
-    insertResult(resultRounding(expresion));
+    const result = parseFloat(expresion);
+    insertResult(resultFormat(result));
 
   } else if (evaluateExpresion(expresion, validOperationFormat)) {
     //si es una expresion de operacion
     const result = calculate(expresion);
     //si hay division por cero, resultara en undefined
-    insertResult(resultRounding(result));
+    insertResult(resultFormat(result));
 
   } else {
     indicateSintaxError();
   }
-  // TODO: agregar boton (M+,M-) a la calculadora
-  // TODO: mejorar la visualizacion de la operacion y resultado
+  // TODO: agregar boton STO y GET a la calculadora junto a una memoria
 }
