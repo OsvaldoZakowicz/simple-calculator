@@ -211,7 +211,7 @@ function calculate(expresion) {
     } else {
       return toOperate[0]/toOperate[1];
     }
-    
+
   };
 
 };
@@ -289,6 +289,5 @@ equal.onclick = (event) => {
     indicateSintaxError();
   }
   // TODO: agregar boton (M+,M-) a la calculadora
-  // TODO: si es un solo numero (¬n, ¬¬n, n), operar y retornar
   // TODO: mejorar la visualizacion de la operacion y resultado
 }
