@@ -42,7 +42,7 @@ const negative = document.getElementById('negative');
  * @returns 
  */
 function insertCaracter(caracter){ 
-  displayoperation.textContent += caracter;
+  displayresult.textContent += caracter;
 };
 
 /**
@@ -50,6 +50,9 @@ function insertCaracter(caracter){
  * @param {*} result 
  */
 function insertResult(result){
+  displayoperation.textContent = '';
+  displayoperation.textContent += displayresult.textContent + ' = ' + result.toString();
+  displayresult.textContent = '';
   displayresult.textContent += result.toString();
 }
 
@@ -152,7 +155,7 @@ c.onclick = (event) => {
  * identificar con numeros negativos opcionales (¬n) y positivos
  * de la forma (¬¬n) = n
  */
-let validOperationFormat = /^[¬]{0,2}[0-9]+(\.[0-9]{1,5})?[+|\-|*|/]{1}[¬]{0,2}[0-9]+(\.[0-9]{1,5})?$/;
+let validOperationFormat = /^[¬]{0,2}[0-9]+(\.[0-9]+)?[+|\-|*|/]{1}[¬]{0,2}[0-9]+(\.[0-9]+)?$/;
 //let validOperationFormat = /^[0-9]+(\.[0-9]{1,5})?[+|\-|*|/]{1}[0-9]+(\.[0-9]{1,5})?$/;
 
 //identificar numeros negativos (¬n)
@@ -185,29 +188,25 @@ function evaluateExpresion(expresion, regex) {
 function calculate(expresion) {
 
   if (expresion.includes('+')) {
-
     //suma
     const toOperate = processOperation(expresion,'+');
     return toOperate[0]+toOperate[1];
 
   } else if(expresion.includes('-')) {
-
     //resta
     const toOperate = processOperation(expresion,'-');
     return toOperate[0]-toOperate[1];
 
   } else if(expresion.includes('*')) {
-
     //multiplicacion
     const toOperate = processOperation(expresion,'*');
     return toOperate[0]*toOperate[1];
 
   } else if(expresion.includes('/')) {
-
     //division
     const toOperate = processOperation(expresion,'/');
     if(toOperate[1] === 0) {
-      return indicateSintaxError();
+      //error
     } else {
       return toOperate[0]/toOperate[1];
     }
@@ -249,41 +248,48 @@ function processOperation(expresion, operator) {
 
 };
 
+function resultRounding(result) {
+  //si el resultado es entero, retornar
+  if(Number.isInteger(result)) {
+    return result;
+  } else {
+    return result.toFixed(5);
+  }
+}
+
 /**
  * *Indicar error de sintaxis cuando falla la validacion
  * de la operacion
  */
-function indicateSintaxError() {
-  displayresult.textContent += 'SYNTAX ERROR, press C';
+function indicateSintaxError(msg = 'SYNTAX ERROR') {
+  displayresult.textContent = '';
+  displayresult.textContent += msg + ' press C.';
 };
 
 equal.onclick = (event) => {
 
   //obtengo la expresion del display
-  const expresion = displayoperation.textContent;
+  const expresion = displayresult.textContent;
 
   if(evaluateExpresion(expresion, negativeNumber)) {
     //si es un numero negativo (¬n) solamente
-
     const result = expresion.replace('¬','-');
-    displayresult.textContent += result;
+    insertResult(resultRounding(result));
 
   } else if (evaluateExpresion(expresion, negativePositiveNumber)) {
     //si es un numero positivo de la forma (¬¬n) solamente
-
     const result = expresion.slice(2, expresion.length);
-    displayresult.textContent += result;
+    insertResult(resultRounding(result));
 
   } else if(evaluateExpresion(expresion, positiveNumber)) {
     //si es un numero positivo (n)
-
-    displayresult.textContent += expresion;
+    insertResult(resultRounding(expresion));
 
   } else if (evaluateExpresion(expresion, validOperationFormat)) {
     //si es una expresion de operacion
-
     const result = calculate(expresion);
-    displayresult.textContent += result;
+    //si hay division por cero, resultara en undefined
+    insertResult(resultRounding(result));
 
   } else {
     indicateSintaxError();
