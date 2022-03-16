@@ -69,7 +69,7 @@ function insertResult(result){
  * @returns
  */
 function deleteCaracter(){
-  displayoperation.textContent = displayoperation.textContent.substring(0, displayoperation.textContent.length-1);
+  displayresult.textContent = displayresult.textContent.substring(0, displayresult.textContent.length-1);
 }
 
 /**
