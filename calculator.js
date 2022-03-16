@@ -34,7 +34,7 @@ const divide = document.getElementById('divide');
 const equal = document.getElementById('equal');
 const sup = document.getElementById('sup');
 const c = document.getElementById('c');
-const about = document.getElementById('about');
+const negative = document.getElementById('negative');
 
 /**
  * *Inserto caracteres en el display de operacion
@@ -114,6 +114,10 @@ cero.onclick = (event) => {
   insertCaracter(0)
 };
 
+negative.onclick = event => { 
+  insertCaracter('¬');
+};
+
 dot.onclick = (event) => {
   insertCaracter('.')
 };
@@ -142,15 +146,21 @@ c.onclick = (event) => {
   clearDisplay();
 };
 
-about.onclick = event => { 
-  alert("C4LCUL4T0R v0.1, Make with love!!, NOTE: separate operations using the = button, otherwise the result will not be correct. Combined operations not supported yet");
-};
-
 /**
  * *Regex valido para operar dos numeros enteros (opcionalmente con .)
  * en las operaciones basicas +,-,*,/
+ * identificar con numeros negativos opcionales (¬n) y positivos
+ * de la forma (¬¬n) = n
  */
-let validOperationFormat = /^[0-9]+(\.[0-9]{1,5})?[+|\-|*|/]{1}[0-9]+(\.[0-9]{1,5})?$/;
+let validOperationFormat = /^[¬]{0,2}[0-9]+(\.[0-9]{1,5})?[+|\-|*|/]{1}[¬]{0,2}[0-9]+(\.[0-9]{1,5})?$/;
+//let validOperationFormat = /^[0-9]+(\.[0-9]{1,5})?[+|\-|*|/]{1}[0-9]+(\.[0-9]{1,5})?$/;
+
+//identificar numeros negativos (¬n)
+let negativeNumber = /^[¬]{1}[0-9]+(\.[0-9]+)?$/;
+
+//identificar numeros positivos con la forma (¬¬n)
+let negativePositiveNumber = /^[¬]{2}[0-9]+(\.[0-9]+)?$/;
+
 
 /**
  * *Evalua la operacion ingresada comparandola con el 
@@ -163,6 +173,11 @@ function evaluateExpresion() {
   return validation;
 };
 
+/**
+ * * Calcular la expresion especificada
+ * @param {*} expresion 
+ * @returns result
+ */
 function calculate(expresion) {
   if (expresion.includes('+')) {
     //suma
@@ -195,7 +210,30 @@ function calculate(expresion) {
  * @returns 
  */
 function processOperation(expresion, operator) {
-  return expresion.split(operator).map((expr) => parseFloat(expr));
+
+  //tiene numeros negativos, al menos uno de ellos?
+  if(expresion.includes('¬')) {
+    console.log(`En fn processOperation: ${expresion}`);
+    
+    return expresion.split(operator).map((exp) => {
+      //numero negativo (¬n)
+      if(exp.match(negativeNumber)) {
+        return parseFloat(exp.replace('¬','-'));
+      }
+      //numero positivo de la forma (¬¬n)
+      if(exp.match(negativePositiveNumber)) {
+        return parseFloat(exp.slice(2, exp.length));
+      }
+      //numero positivo
+      return parseFloat(exp);
+
+    });
+
+  } else {
+    //no tiene numeros negativos, tratar todos como positivos
+    return expresion.split(operator).map((expr) => parseFloat(expr));
+  }
+
 };
 
 /**
@@ -217,7 +255,6 @@ equal.onclick = (event) => {
   } else {
     indicateSintaxError();
   }
-  // TODO: identificar numeros negativos
-  // TODO: si es un solo numero, retornar
-  // TODO: operar numeros negativos
+  // TODO: agregar boton (M+,M-) a la calculadora
+  // TODO: si es un solo numero (¬n, ¬¬n, n), operar y retornar
 }
