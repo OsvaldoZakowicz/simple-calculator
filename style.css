@@ -34,9 +34,10 @@ body {
 .calc-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  /*la primera fila es del display*/
+  grid-template-rows: repeat(7, 1fr);
   width: 300px;
-  height: 440px;
+  height: 490px;
 }
 
 .display {
@@ -93,20 +94,36 @@ body {
 }
 
 .c {
-  grid-column: 2/span 1;
-  grid-row: 2/span 1;
+  grid-column: 1/span 1;
+  grid-row: 3/span 1;
   background-color: #0077b6;
 }
 
-.add {
+.m-set {
   grid-column: 3/span 1;
   grid-row: 2/span 1;
+}
+
+.m-get {
+  grid-column: 4/span 1;
+  grid-row: 2/span 1;
+}
+
+.m-del {
+  grid-column: 2/span 1;
+  grid-row: 2/span 1;
+  text-decoration: line-through;
+}
+
+.add {
+  grid-column: 2/span 1;
+  grid-row: 3/span 1;
   background-color: #ff6b35;
 }
 
 .sub{
-  grid-column: 4/span 1;
-  grid-row: 2/span 1;
+  grid-column: 3/span 1;
+  grid-row: 3/ span 1;
   background-color: #ff6b35;
 }
 
@@ -122,18 +139,21 @@ body {
   background-color: #ff6b35;
 }
 
+.negative {
+  grid-column: 4/span 1;
+  grid-row: 5/span 1;
+  background-color: #fcca46;
+}
+
 .equal {
   grid-column: 4/span 1;
-  grid-row: 5/span 2;
-  /*height: 167px;*/
+  grid-row: 6/span 2;
+  height: 126px;
   background-color: #007f5f;
 }
 
 .dot {
   grid-column: 1/span 1;
-  grid-row: 6/span 1;
+  grid-row: 7/span 1;
 }
 
-.negative {
-  background-color: #fcca46;
-}
