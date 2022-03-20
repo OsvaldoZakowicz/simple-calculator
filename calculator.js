@@ -11,6 +11,12 @@ const displayoperation = document.getElementById('operation');
 const displayresult = document.getElementById('result');
 
 /**
+ * *Obtengo el display 'memory-slot' de la calculadora
+ * mostrar la memoria
+ */
+const displaymemory = document.getElementById('memory');
+
+/**
  * *Obtengo botones de numeros
  */
 const nueve = document.getElementById('btn-num9');
@@ -35,6 +41,9 @@ const equal = document.getElementById('equal');
 const sup = document.getElementById('sup');
 const c = document.getElementById('c');
 const negative = document.getElementById('negative');
+const memoryset = document.getElementById('m-set');
+const memoryget = document.getElementById('m-get');
+const memorydel = document.getElementById('m-del');
 
 /**
  * *Inserto caracteres en el display de operacion
@@ -308,6 +317,68 @@ equal.onclick = (event) => {
 
   } else {
     indicateSintaxError();
-  }
-  // TODO: agregar boton STO y GET a la calculadora junto a una memoria
+  };
+  // TODO: solucionar la division por cero
 }
+
+/**
+ * *Memory management
+ * [expresion(string),resultado(string)], 
+ * ejemplo ['2+3 = 5',5]
+ */
+const memoryCalc = [];
+
+/**
+ * *Guardar una operacion en memoria
+ * @param {*} operation 
+ * @param {*} result 
+ */
+function setMemory(operation, result) {
+  if (memoryCalc.length === 0) {
+
+    memoryCalc.push(operation);
+    memoryCalc.push(result);
+  } else {
+    deleteMemory();
+    memoryCalc.push(operation);
+    memoryCalc.push(result);
+  }
+  
+};
+
+/**
+ * *Retornar un resultado de memoria
+ * @returns memory
+ */
+function getMemory() {
+  return memoryCalc[1];
+};
+
+/**
+ * *Vaciar la memoria
+ */
+function deleteMemory() {
+  memoryCalc.pop();
+  memoryCalc.pop();
+}
+
+memoryset.onclick = (event) => {
+  const operationToSave = displayoperation.textContent;
+  const resultToSave = displayresult.textContent;
+  if(operationToSave.length !== 0) {
+    displaymemory.textContent = operationToSave;
+    setMemory(operationToSave, resultToSave);
+  }
+};
+
+memoryget.onclick = (event) => {
+  if (memoryCalc.length !== 0) {
+    console.log('retornando memoria');
+    displayresult.textContent += getMemory();
+  }
+};
+
+memorydel.onclick = (event) => {
+  deleteMemory();
+  displaymemory.textContent = '';
+};
