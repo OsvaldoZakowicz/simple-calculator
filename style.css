@@ -39,6 +39,7 @@ body {
 }
 
 .text {
+  font-size: 18px;
   text-transform: uppercase;
   color: #ffffff;
 }
@@ -50,7 +51,7 @@ body {
   /*la primera fila es del display*/
   grid-template-rows: repeat(7, 1fr);
   width: 300px;
-  height: 540px;
+  height: 570px;
 }
 
 .display {
@@ -61,10 +62,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: start;
-  align-items: center;
+  align-items: flex-start;
   /*hereda el ancho de calc-container*/
   width: inherit;
-  height: 130px;
+  height: 180px;
   border-radius: 5px;
   padding: 5px;
   margin-bottom: 5px;
@@ -72,11 +73,19 @@ body {
   background-color: var(--color-calculator_display);
 }
 
+.display span {
+  font-size: 12px;
+  letter-spacing: .8px;
+  line-height: 90%;
+}
+
 .display .memory {
   display: inline-flex;
   width: 100%;
-  height: 30%;
-  padding: 5px 0;
+  height: 33%;
+  padding: 3px 0;
+  line-height: 90%;
+  overflow-x: scroll;
   border-bottom: 1px solid var(--color-calculator_display_border);
 }
 
@@ -90,20 +99,26 @@ body {
 .display .memory .memory-slot {
   width: 100%;
   height: 100%;
+  font-style: italic;
 }
 
 .display .operation {
   width: 100%;
-  height: 30%;
-  padding: 5px 0;
+  height: 33%;
+  padding: 3px 0;
+  line-height: 90%;
+  overflow-x: scroll;
   border-bottom: 1px solid var(--color-calculator_display_border);
 }
 
 .display .result {
   width: 100%;
-  height: 40%;
-  font-size: 35px;
-  padding: 5px 0;
+  height: 33%;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 3px 0;
+  line-height: 90%;
+  overflow-x: scroll;
 }
 
 .btn {
