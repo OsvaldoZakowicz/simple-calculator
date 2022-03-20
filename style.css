@@ -3,6 +3,7 @@
 :root {
   --color-calculator_body: #353535;
   --color-calculator_display: #f8f9fa;
+  --color-calculator_display_border: #dee2e6;
   /*colores de los botones*/
   --color-btn-base: #6c757d;
   --color-btn-text: #343a40;
@@ -31,8 +32,8 @@ body {
   justify-content: center;
   align-items: center;
   width: 310px;
-  height: 540px;
-  margin: 20px auto;
+  height: 600px;
+  margin: 5px auto;
   border-radius: 5px;
   background-color: var(--color-calculator_body);
 }
@@ -49,7 +50,7 @@ body {
   /*la primera fila es del display*/
   grid-template-rows: repeat(7, 1fr);
   width: 300px;
-  height: 490px;
+  height: 540px;
 }
 
 .display {
@@ -61,26 +62,47 @@ body {
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  font-size: 50px;
   /*hereda el ancho de calc-container*/
   width: inherit;
-  height: 100px;
+  height: 130px;
   border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
   color: var(--color-btn-text);
   background-color: var(--color-calculator_display);
 }
 
-.display .operation {
-  width: inherit;
+.display .memory {
+  display: inline-flex;
+  width: 100%;
   height: 30%;
-  padding: 0 5px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--color-calculator_display_border);
+}
+
+.display .memory .memory-label {
+  width: 25px;
+  height: 100%;
+  margin-right: 5px;
+}
+
+.display .memory .memory-slot {
+  width: 100%;
+  height: 100%;
+}
+
+.display .operation {
+  width: 100%;
+  height: 30%;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--color-calculator_display_border);
 }
 
 .display .result {
-  width: inherit;
-  height: 70%;
+  width: 100%;
+  height: 40%;
   font-size: 35px;
-  padding: 10px 5px;
+  padding: 5px 0;
 }
 
 .btn {
