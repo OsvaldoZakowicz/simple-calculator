@@ -67,7 +67,7 @@ function insertResult(result){
     resultFormated = resultFormated.toString();
   }
   displayoperation.textContent = '';
-  displayoperation.textContent += displayresult.textContent + ' = ' + resultFormated;
+  displayoperation.textContent += displayresult.textContent + '=' + resultFormated;
   displayresult.textContent = '';
   displayresult.textContent += resultFormated;
 }
@@ -276,7 +276,7 @@ function resultFormat(result) {
   if(Number.isInteger(result)) {
     return result;
   } else {
-    return result.toFixed(8);
+    return result.toFixed(6);
   }
 }
 
