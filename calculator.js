@@ -222,7 +222,7 @@ function calculate(expresion) {
     //division
     const toOperate = processOperation(expresion,'/');
     if(toOperate[1] === 0) {
-      //error
+      throw new Error('MATH ERROR');
     } else {
       return toOperate[0]/toOperate[1];
     }
@@ -284,7 +284,7 @@ function resultFormat(result) {
  * *Indicar error de sintaxis cuando falla la validacion
  * de la operacion
  */
-function indicateSintaxError(msg = 'SYNTAX ERROR') {
+function indicateError(msg) {
   displayresult.textContent = '';
   displayresult.textContent += msg + ' press C.';
 };
@@ -293,32 +293,43 @@ equal.onclick = (event) => {
 
   //obtengo la expresion del display
   const expresion = displayresult.textContent;
+  //verificar validez de la expresion y operar si es posible
+  try {
 
-  if(evaluateExpresion(expresion, negativeNumber)) {
-    //si es un numero negativo (¬n) solamente
-    const result = parseFloat(expresion.replace('¬','-'));
-    insertResult(resultFormat(result));
+    if(evaluateExpresion(expresion, negativeNumber)) {
+      //si es un numero negativo (¬n) solamente
+      const result = parseFloat(expresion.replace('¬','-'));
+      insertResult(resultFormat(result));
+  
+    } else if (evaluateExpresion(expresion, negativePositiveNumber)) {
+      //si es un numero positivo de la forma (¬¬n) solamente
+      const result = parseFloat(expresion.slice(2, expresion.length));
+      insertResult(resultFormat(result));
+  
+    } else if(evaluateExpresion(expresion, positiveNumber)) {
+      //si es un numero positivo (n)
+      const result = parseFloat(expresion);
+      insertResult(resultFormat(result));
+  
+    } else if (evaluateExpresion(expresion, validOperationFormat)) {
 
-  } else if (evaluateExpresion(expresion, negativePositiveNumber)) {
-    //si es un numero positivo de la forma (¬¬n) solamente
-    const result = parseFloat(expresion.slice(2, expresion.length));
-    insertResult(resultFormat(result));
+      //ante una operacion valida, solo hay un error al dividir entre cero
+      try {
+        //si es una expresion de operacion
+        //NOTA: error al dividir entre cero, genera un error
+        const result = calculate(expresion);
+        //si hay division por cero, resultara en undefined
+        insertResult(resultFormat(result)); 
+      } catch (error) {
+        indicateError(error.message);
+      }
+    } else {
+      throw new Error('SINTAX ERROR');
+    };
 
-  } else if(evaluateExpresion(expresion, positiveNumber)) {
-    //si es un numero positivo (n)
-    const result = parseFloat(expresion);
-    insertResult(resultFormat(result));
-
-  } else if (evaluateExpresion(expresion, validOperationFormat)) {
-    //si es una expresion de operacion
-    const result = calculate(expresion);
-    //si hay division por cero, resultara en undefined
-    insertResult(resultFormat(result));
-
-  } else {
-    indicateSintaxError();
-  };
-  // TODO: solucionar la division por cero
+  } catch (error) {
+    indicateError(error.message);
+  }
 }
 
 /**
