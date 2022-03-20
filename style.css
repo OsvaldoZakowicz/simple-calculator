@@ -84,6 +84,7 @@ body {
   width: 25px;
   height: 100%;
   margin-right: 5px;
+  color: var(--color-btn-btn_memory);
 }
 
 .display .memory .memory-slot {
