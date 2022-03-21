@@ -1,5 +1,7 @@
 
-# SimpleCalculator.
+# SimpleCalculator. v1.0
+
+### [Try it now!](https://osvaldozakowicz.github.io/SimpleCalculator) :D
 
 ## A simple calculator, developed with html, css and javascript!
 
