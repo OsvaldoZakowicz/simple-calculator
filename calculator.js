@@ -384,7 +384,6 @@ memoryset.onclick = (event) => {
 
 memoryget.onclick = (event) => {
   if (memoryCalc.length !== 0) {
-    console.log('retornando memoria');
     displayresult.textContent += getMemory();
   }
 };
