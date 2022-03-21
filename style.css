@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 :root {
+  /*colores de la calculadora*/
   --color-calculator_body: #353535;
   --color-calculator_display: #f8f9fa;
   --color-calculator_display_border: #dee2e6;
@@ -11,22 +12,29 @@
   --color-btn-btn_delete: #ff5e5b;
   --color-btn-btn_operate: #a3b18a;
   --color-btn-btn_border: #f8f9fa;
+  /*colores de el dialogo de ayuda*/
+  --color-background: #353535;
+  --color-text: #dee2e6;
+  --color-emphasis: #588157;
+  --color-close-link: #ff5e5b;
 }
 
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Bebas Neue', cursive;
-  font-size: 24px;
 }
 
 body {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 24px;
   background-color: #555b6e;
 }
 
 /*fondo de la calculadora*/
 .container {
+  /*por que el dialogo de ayuda estara encima*/
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,6 +140,7 @@ body {
   border: none;
   border-radius: 5px;
   font-size: 30px;
+  font-family: 'Bebas Neue', cursive;
   color: var(--color-btn-text);
   background-color: var(--color-btn-base);
 }
@@ -212,3 +221,87 @@ body {
   background-color: var(--color-btn-btn_operate);
 }
 
+/**help dialog styles*/
+
+.help-container {
+  /*posicion absoluta a .container*/
+  position: absolute;
+  display: none;
+  width: 310px;
+  height: 600px;
+  padding: 10px;
+  margin: 5px auto;
+  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+.help-container-visible {
+  display: block;
+}
+
+.help-container .help-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid var(--color-text);
+}
+
+.help-container .help-heading .help-title, .help-close-button {
+  font-size: 18px;
+  letter-spacing: .5px;
+  line-height: 90%;
+  font-weight: bold;
+}
+
+.help-container .help-heading .help-close-button {
+  text-decoration: none;
+  padding: 5px 10px;
+  width: auto;
+  border-radius: 5px;
+  color: var(--color-close-link);
+}
+
+.help-container .help-heading .help-close-button:hover {
+  background-color: var(--color-close-link);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: 1ms;
+}
+
+.help-container .help-content {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.help-container .help-content .help-line {
+  margin: 8px 0;
+  border-bottom: 1px solid var(--color-text);
+}
+
+.help-container .help-content .help-line::before {
+  content: "*";
+  font-size: 20px;
+  line-height: 90%;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.help-container .help-content .help-line .help-emphasis {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: var(--color-emphasis);
+  background-color: var(--color-text);
+}
+
+.help-container .help-content .help-line:nth-child(3) .help-emphasis {
+  text-decoration: line-through;
+}
+
+.help-container .help-content .help-line:nth-child(7) a {
+  color: var(--color-emphasis);
+}

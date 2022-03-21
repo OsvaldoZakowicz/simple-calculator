@@ -8,9 +8,10 @@
   <title>Calculator</title>
 </head>
 <body>
-  <!-- code here!!! -->
+  <!-- main container -->
   <div class="container">
     <p class="text">c4lcul4t0r</p>
+    <!-- calculator container -->
     <div class="calc-container">
       <!-- display -->
       <div id="display" class="display">
@@ -27,7 +28,7 @@
         <span>result</span>
         <div id="result" class="result"></div>
       </div>
-      <!-- numeros -->
+      <!-- number buttons -->
       <button id="btn-num9" class="btn">9</button>
       <button id="btn-num8" class="btn">8</button>
       <button id="btn-num7" class="btn">7</button>
@@ -38,7 +39,7 @@
       <button id="btn-num2" class="btn">2</button>
       <button id="btn-num1" class="btn">1</button>
       <button id="btn-num0" class="btn">0</button>
-      <!-- botones especiales -->
+      <!-- operation buttons  -->
       <button id="sup" class="btn sup">sup</button>
       <button id="c" class="btn c">c</button>
       <button id="m-set" class="btn m-set">m+</button>
@@ -51,10 +52,47 @@
       <button id="negative" class="btn negative">¬</button>
       <button id="dot" class="btn dot">.</button>
       <button id="equal" class="btn equal">=</button>
-      <!-- boton extra -->
-      <button class="btn">:D</button>
+      <!-- help button -->
+      <button id="help" class="btn">?</button>
+    </div>
+    <!-- help container -->
+    <div id="helpDialog" class="help-container">
+      <div class="help-heading">
+        <div class="help-title">How to use?</div>
+        <a id="close" class="help-close-button" href="#">x</a>
+      </div>
+      <div class="help-content">
+        <p class="help-line">Use the <span class="help-emphasis">M+</span> button to store an operation in memory.</p>
+        <p class="help-line">Use the <span class="help-emphasis">M-</span> button to return a memory operation to the result field.</p>
+        <p class="help-line">Use the <span class="help-emphasis">M</span> button to empty the memory.</p>
+        <p class="help-line">Use the <span class="help-emphasis">SUP</span> button to delete characters you typed, one at a time.</p>
+        <p class="help-line">Use the <span class="help-emphasis">C</span> button to remove an operation and result from the fields.</p>
+        <p class="help-line">Use the <span class="help-emphasis">¬</span> button to type a negative number (only for negative numbers, not for subtraction).</p>
+        <p class="help-line">Use the <span class="help-emphasis">+</span>, <span class="help-emphasis">-</span>, <span class="help-emphasis">*</span>, <span class="help-emphasis">/</span> buttons for basic operations, <a href="https://es.wikipedia.org/wiki/Operaci%C3%B3n_binaria" target="_blank">binary only</a>. Example: 2+3, 6*7, 5/3 or 4-1.</p>
+        <p class="help-line">Use the <span class="help-emphasis">.</span> (dot) button to enter decimal numbers.</p>
+        <p class="help-line">Use the <span class="help-emphasis">=</span> button to calculate the operation.</p>
+      </div>
     </div>
   </div>
+  <!-- calculator script -->
   <script src="calculator.js"></script>
+  <!-- help open/close dialog script -->
+  <script>
+    const showHelpDialog = document.getElementById('help');
+    const closeHelpDialog = document.getElementById('close');
+    const helpDialog = document.getElementById('helpDialog');
+
+    /**
+     * *Toggle a class in the classList of the element
+     */
+    function toggleClass(className) {
+      helpDialog.classList.toggle(className);
+    }
+
+    //show help dialog
+    showHelpDialog.onclick = (e) => {toggleClass('help-container-visible')};
+    //close help dialog
+    closeHelpDialog.onclick = (event) => {toggleClass('help-container-visible')};
+  </script>
 </body>
 </html>
