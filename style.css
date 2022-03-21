@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 :root {
-  /*colores de la calculadora*/
+  /*colors of the calculator*/
   --color-calculator_body: #353535;
   --color-calculator_display: #f8f9fa;
   --color-calculator_display_border: #dee2e6;
-  /*colores de los botones*/
+  /*button colors*/
   --color-btn-base: #6c757d;
   --color-btn-text: #343a40;
   --color-btn-btn_memory: #588157;
   --color-btn-btn_delete: #ff5e5b;
   --color-btn-btn_operate: #a3b18a;
   --color-btn-btn_border: #f8f9fa;
-  /*colores de el dialogo de ayuda*/
+  /*help dialog colors*/
   --color-background: #353535;
   --color-text: #dee2e6;
   --color-emphasis: #588157;
@@ -31,9 +31,9 @@ body {
   background-color: #555b6e;
 }
 
-/*fondo de la calculadora*/
+/*main container*/
 .container {
-  /*por que el dialogo de ayuda estara encima*/
+  /*because the help dialog will be on top*/
   position: relative;
   display: flex;
   flex-direction: column;
@@ -52,11 +52,11 @@ body {
   color: #ffffff;
 }
 
-/*agrupa display y botones*/
+/*group the display and buttons*/
 .calc-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  /*la primera fila es del display*/
+  /*the first row is for the display*/
   grid-template-rows: repeat(7, 1fr);
   width: 300px;
   height: 570px;
@@ -71,7 +71,7 @@ body {
   flex-direction: column;
   justify-content: start;
   align-items: flex-start;
-  /*hereda el ancho de calc-container*/
+  /*inherits the width of the calc-container*/
   width: inherit;
   height: 180px;
   border-radius: 5px;
@@ -224,7 +224,7 @@ body {
 /**help dialog styles*/
 
 .help-container {
-  /*posicion absoluta a .container*/
+  /*absolute to container class*/
   position: absolute;
   display: none;
   width: 310px;
@@ -281,6 +281,7 @@ body {
   border-bottom: 1px solid var(--color-text);
 }
 
+/*to put an * in front of every p*/
 .help-container .help-content .help-line::before {
   content: "*";
   font-size: 20px;
@@ -298,10 +299,12 @@ body {
   background-color: var(--color-text);
 }
 
+/*to put a line through the M on the p in third position*/
 .help-container .help-content .help-line:nth-child(3) .help-emphasis {
   text-decoration: line-through;
 }
 
+/*to edit the "a" tag in the seventh p*/
 .help-container .help-content .help-line:nth-child(7) a {
   color: var(--color-emphasis);
 }
