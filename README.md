@@ -1,5 +1,5 @@
 
-# SimpleCalculator. v1.0
+# Simple Calculator. v1.0
 
 ### [Try it now!](https://osvaldozakowicz.github.io/SimpleCalculator) :D
 
